@@ -1,0 +1,51 @@
+package javaapplication18;
+import java.util.*;
+import java.text.ParseException;
+
+public class JavaApplication18 {
+
+    
+    static void findWaitingTime(int proc[], int n, int bt[], int wt[], int at[])  
+{  
+    int st[] = new int[n];  
+    st[0] = 0;  
+    wt[0] = 0;  
+    for (int i = 1; i < n ; i++)  
+    {    
+        st[i] = st[i-1] + bt[i-1];  
+        wt[i] = st[i] - at[i];    
+        if (wt[i] < 0)  
+            wt[i] = 0;  
+    }  
+}  
+  static void findavgTime(int processes[], int n, int bt[], int at[])  
+{  
+    int wt[] = new int[n];   
+    findWaitingTime(processes, n, bt, wt, at);  
+    System.out.print("Processes " + " Burst Time " + " Arrival Time "+ " Waiting Time \n");  
+    int total_wt = 0; 
+    for (int i = 0 ; i < n ; i++)  
+    {  
+        total_wt = total_wt + wt[i];    
+        System.out.println(i+1 + "\t\t" + bt[i] + "\t\t"+ at[i] + "\t\t" + wt[i] + "\t\t ");  
+    }  
+    System.out.print("Average waiting time = " + (float)total_wt / (float)n);    
+    
+}
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter number of Process: "); 
+        int n=sc.nextInt();
+        int proc[] = new int[n];    
+        int bt[] = new int[n];  
+        int at[] = new int[n];  
+        for(int i=0;i<n;i++){
+            System.out.println("Enter Arrival Time: "); 
+            at[i] = sc.nextInt(); 
+            System.out.println("Enter Burst Time: "); 
+            bt[i] = sc.nextInt();
+        }
+        findavgTime(proc, n, bt, at);       
+        }
+    }
